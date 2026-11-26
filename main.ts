@@ -76,10 +76,14 @@ function copyTree(from: string, to: string): string[] {
 
 const dashFiles = copyTree(join(here, 'dashboard'), join(outDir, 'dashboard'));
 if (!dashFiles.includes('index.html')) fail('dashboard/ holds no index.html');
+if (!dashFiles.some((name) => name.endsWith('.css'))) fail('dashboard/ holds no stylesheet: the gate asks for index.html plus at least one .css and one .js');
+if (!dashFiles.some((name) => name.endsWith('.js'))) fail('dashboard/ holds no script: the gate asks for index.html plus at least one .css and one .js');
 const shots = copyTree(join(here, 'screenshots'), join(outDir, 'screenshots'));
 if (shots.length !== 3) fail(`screenshots/ holds ${shots.length} images: hand in exactly 3, the board, a detail view and a filtered view`);
 for (const name of shots) {
   if (!IMAGE_NAME.test(name)) fail(`screenshots/${name}: a name is letters, digits and . _ -, 1 to 128 characters`);
+  const bytes = statSync(join(outDir, 'screenshots', name)).size;
+  if (bytes > SCREENSHOT_CAPS.max_bytes) fail(`screenshots/${name} is ${bytes} bytes: the dossier caps one image at ${SCREENSHOT_CAPS.max_bytes} bytes`);
 }
 
 // The dossier is written last: the scorer rebuilds it from this output and compares bytes.
