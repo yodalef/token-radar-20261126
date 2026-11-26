@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — the pre-token launch board</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-in">
+    <div>
+      <h1>Token Radar</h1>
+      <p class="tagline">Protocols that record no token yet, ranked by what a launch would be worth — and how to farm each one before it happens.</p>
+    </div>
+    <div class="mast-stats" id="mast-stats"></div>
+  </div>
+</header>
+
+<section class="model-strip" id="model-strip"></section>
+
+<main>
+  <section id="detail" class="detail" hidden></section>
+
+  <section class="board-card">
+    <div class="controls">
+      <label class="ctl grow">Search
+        <input id="q" type="search" placeholder="Name or slug…" autocomplete="off">
+      </label>
+      <label class="ctl">Category
+        <select id="cat"><option value="">All categories</option></select>
+      </label>
+      <label class="ctl">Chain
+        <select id="chain"><option value="">All chains</option></select>
+      </label>
+      <label class="ctl">Sort by
+        <select id="sort">
+          <option value="rank">Radar rank</option>
+          <option value="value">Implied value</option>
+          <option value="tvl">TVL</option>
+          <option value="growth">7-day growth</option>
+          <option value="age">Years without a token</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </label>
+      <label class="ctl check"><input id="watch" type="checkbox"> Watchlist only</label>
+    </div>
+    <p class="count" id="count"></p>
+    <div class="table-wrap">
+      <table class="board">
+        <thead>
+          <tr>
+            <th class="num">#</th><th>Protocol</th><th>Category</th><th>Chains</th>
+            <th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th><th class="num">Implied value</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="empty" id="empty" hidden>No protocol matches that filter. Loosen the search, or clear the category and chain.</p>
+  </section>
+
+  <section class="board-card live-card">
+    <h2>Already launched — kept off the board</h2>
+    <p class="live-note">These protocols already record a token, so the radar does not rank them or guess at a value: the market has spoken. They are shown at their recorded market cap, as the yardstick the pre-token board is priced against.</p>
+    <div class="table-wrap">
+      <table class="board live">
+        <thead>
+          <tr><th>Protocol</th><th>Symbol</th><th>Category</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">7d</th></tr>
+        </thead>
+        <tbody id="live-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p id="source-line"></p>
+    <p>Implied value is this radar's own model claim, not a prediction that a token will be issued or what it would trade at. Farm plans are starting points: check each protocol's own page before moving funds.</p>
+  </footer>
+</main>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
